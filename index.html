@@ -46,8 +46,15 @@
   .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
   .chip{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13.5px;color:var(--muted);letter-spacing:.04em}
   .chip b{color:var(--paper)}
-  .photoband{border-bottom:1px solid var(--line)}
-  .photoband img{width:100%;height:auto;max-height:430px;object-fit:cover;display:block}
+  .equip{padding:56px 0 8px}
+  .equipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+  @media(max-width:960px){.equipgrid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.equipgrid{grid-template-columns:1fr}}
+  .eq{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .eq img{width:100%;height:230px;object-fit:cover;display:block}
+  .eq .cap{padding:14px 16px 16px}
+  .eq .cap b{display:block;font-size:16.5px;letter-spacing:.06em;text-transform:uppercase}
+  .eq .cap span{color:var(--muted);font-size:14px}
   /* sections */
   section{padding:64px 0}
   h2{font-size:clamp(26px,3.6vw,36px);font-weight:800;margin-bottom:10px}
@@ -97,6 +104,7 @@
   <div class="wrap bar">
     <img class="logoimg" src="logo-header.png" alt="Freight Trac LLC">
     <nav>
+      <a href="#equipment">Equipment</a>
       <a href="#services">Services</a>
       <a href="#work">On the Job</a>
       <a href="#how">How It Works</a>
@@ -125,14 +133,36 @@
   </div>
 </div>
 <div class="stripe"></div>
-<div class="photoband">
-  <img src="fleet-yard.jpg" alt="Freight Trac trucks at the yard — dry van and flatbed ready to roll">
-</div>
+
+<section class="equip" id="equipment">
+  <div class="wrap">
+    <h2>Our equipment</h2>
+    <p class="lede" style="margin-bottom:0">Four ways we move it — match the equipment to the load.</p>
+    <div class="equipgrid">
+      <div class="eq">
+        <img src="equip-power.jpg" alt="Freight Trac tractor — power only">
+        <div class="cap"><b>Power Only</b><span>Your trailer, our tractor and driver — hooked up and rolling.</span></div>
+      </div>
+      <div class="eq">
+        <img src="equip-van.jpg" alt="Freight Trac tractor with 53 foot dry van trailer">
+        <div class="cap"><b>Dry Van</b><span>53′ dry vans for palletized freight and general commodities.</span></div>
+      </div>
+      <div class="eq">
+        <img src="equip-flatbed.jpg" alt="Freight Trac day cab with loaded flatbed trailer">
+        <div class="cap"><b>Flatbed</b><span>Open deck for building materials, equipment, and industrial freight.</span></div>
+      </div>
+      <div class="eq">
+        <img src="equip-stepdeck.jpg" alt="Freight Trac truck with step deck trailer">
+        <div class="cap"><b>Step Deck</b><span>Lower deck height for taller loads a standard flatbed can't take.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="services">
   <div class="wrap">
     <h2>What we haul</h2>
-    <p class="lede">Two specialties, one standard fleet. If your freight moves on a regular lane, we can build a program around it.</p>
+    <p class="lede">Two specialties, one mixed fleet. If your freight moves on a regular lane, we can build a program around it.</p>
     <div class="cards">
       <div class="card">
         <h3><span class="tag">Specialty</span>Drop Trailer Service</h3>
@@ -143,8 +173,8 @@
         <p>Building materials, equipment, and industrial freight that won't fit in a box. Experienced securement, on-time pickup, and direct communication from tender to delivery.</p>
       </div>
       <div class="card">
-        <h3><span class="tag">Core Fleet</span>53′ Dry Van</h3>
-        <p>Our core fleet runs 53-foot dry vans across Georgia and the Southeast — palletized freight, retail and industrial loads, one-offs or standing weekly lanes.</p>
+        <h3><span class="tag">In The Fleet</span>53′ Dry Van</h3>
+        <p>Our fleet's a mix — the dry vans run right alongside the flatbeds. 53-foot dry vans across Georgia and the Southeast: palletized freight, retail and industrial loads, one-offs or standing weekly lanes.</p>
       </div>
     </div>
   </div>
