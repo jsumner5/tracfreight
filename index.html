@@ -82,6 +82,8 @@
   .direct li:last-child{border-bottom:none}
   .direct li::before{content:"▸";position:absolute;left:6px;color:var(--accent);font-weight:800}
   .direct li b{color:var(--paper)}
+  .qualgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:860px){.qualgrid{grid-template-columns:1fr}}
   /* gallery */
   .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   @media(max-width:860px){.gallery{grid-template-columns:1fr}}
@@ -109,6 +111,7 @@
       <a href="#work">On the Job</a>
       <a href="#how">How It Works</a>
       <a href="#area">Service Area</a>
+      <a href="#drivers">Drivers</a>
       <a href="#direct">Why Direct</a>
     </nav>
     <a class="callbtn" href="tel:+14046444093">(404) 644-4093</a>
@@ -235,7 +238,32 @@
   </div>
 </section>
 
-<section id="direct" class="band">
+<section id="drivers" class="band">
+  <div class="wrap">
+    <h2>Qualified drivers, verified</h2>
+    <p class="lede">Your freight is only as good as the driver hauling it. Every Freight Trac driver is cleared the same way before their first load — starting with a minimum of four years of CDL experience — and the paperwork stays on file.</p>
+    <div class="qualgrid">
+      <div class="card">
+        <h3>Licensed &amp; medically certified</h3>
+        <p>Every driver holds a valid commercial driver's license and a current DOT medical card, verified before they ever get behind the wheel for us.</p>
+      </div>
+      <div class="card">
+        <h3>Full qualification files</h3>
+        <p>We maintain complete FMCSA driver qualification files — application, driving record review, and road-test documentation — on every driver in the fleet.</p>
+      </div>
+      <div class="card">
+        <h3>Logged &amp; camera-equipped</h3>
+        <p>Every truck runs electronic logging with hours of service monitored, and dash cameras record the road — your freight moves with a rested, legal driver, and there's video if anything ever happens out there.</p>
+      </div>
+      <div class="card">
+        <h3>DOT drug &amp; alcohol program</h3>
+        <p>Our drivers are enrolled in a DOT-compliant drug and alcohol testing program, including pre-employment and random testing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="direct">
   <div class="wrap direct">
     <div>
       <h2>Why shippers go direct</h2>
