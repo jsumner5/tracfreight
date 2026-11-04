@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freight Trac LLC — Drop Trailer, Flatbed & Dry Van Carrier | Georgia</title>
+<meta name="description" content="Freight Trac LLC is a Georgia-based motor carrier specializing in drop trailer service and flatbed freight, plus 53' dry van. USDOT 3283583 · MC-1046816. Get a direct freight quote — no broker in the middle.">
+<style>
+  :root{
+    --ink:#101418; --ink2:#171d23; --panel:#1c232b; --line:#2b343e;
+    --paper:#f4f2ec; --muted:#a9b2ba; --accent:#ff7a1a; --accent2:#ffb37a;
+    --max:1120px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--paper);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  /* header */
+  header{position:sticky;top:0;z-index:10;background:rgba(16,20,24,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+  .logo{font-weight:800;letter-spacing:.14em;font-size:19px;text-transform:uppercase}
+  .logo span{color:var(--accent)}
+  nav{display:flex;gap:26px;font-size:15px}
+  nav a{text-decoration:none;color:var(--muted)}
+  nav a:hover{color:var(--paper)}
+  .callbtn{background:var(--accent);color:#14100c;font-weight:700;text-decoration:none;padding:9px 16px;border-radius:6px;white-space:nowrap}
+  .callbtn:hover{background:var(--accent2)}
+  @media(max-width:720px){nav{display:none}}
+  /* hero */
+  .hero{padding:76px 0 64px;background:
+    linear-gradient(180deg,rgba(16,20,24,.86),rgba(16,20,24,.97)),
+    repeating-linear-gradient(-45deg,#131920 0 26px,#11161c 26px 52px)}
+  .stripe{height:6px;background:repeating-linear-gradient(90deg,var(--accent) 0 46px,transparent 46px 70px);opacity:.9}
+  .kicker{color:var(--accent);font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:13px;margin-bottom:16px}
+  h1{font-size:clamp(36px,6vw,60px);line-height:1.05;font-weight:850;max-width:16ch}
+  h1 em{font-style:normal;color:var(--accent)}
+  .sub{margin:22px 0 30px;font-size:19px;color:var(--muted);max-width:56ch}
+  .cta{display:flex;flex-wrap:wrap;gap:14px}
+  .btn{display:inline-block;text-decoration:none;font-weight:700;padding:14px 26px;border-radius:8px;font-size:16px}
+  .btn.primary{background:var(--accent);color:#14100c}
+  .btn.primary:hover{background:var(--accent2)}
+  .btn.ghost{border:1px solid var(--line);color:var(--paper)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13.5px;color:var(--muted);letter-spacing:.04em}
+  .chip b{color:var(--paper)}
+  /* sections */
+  section{padding:64px 0}
+  h2{font-size:clamp(26px,3.6vw,36px);font-weight:800;margin-bottom:10px}
+  .lede{color:var(--muted);max-width:62ch;margin-bottom:34px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px}
+  .card h3{font-size:20px;margin-bottom:8px}
+  .card h3 .tag{display:block;color:var(--accent);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+  .card p{color:var(--muted);font-size:15.5px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.steps{grid-template-columns:1fr}}
+  .step{border-left:3px solid var(--accent);padding:4px 0 4px 18px}
+  .step .n{color:var(--accent);font-weight:800;font-size:14px;letter-spacing:.18em}
+  .step h3{font-size:19px;margin:6px 0 6px}
+  .step p{color:var(--muted);font-size:15.5px}
+  .band{background:var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .areas{display:flex;flex-wrap:wrap;gap:10px}
+  .area{border:1px solid var(--line);border-radius:8px;padding:10px 18px;font-weight:600}
+  .area small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+  .direct{display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center}
+  @media(max-width:860px){.direct{grid-template-columns:1fr}}
+  .direct ul{list-style:none}
+  .direct li{padding:9px 0 9px 30px;position:relative;color:var(--muted);border-bottom:1px solid var(--line)}
+  .direct li:last-child{border-bottom:none}
+  .direct li::before{content:"▸";position:absolute;left:6px;color:var(--accent);font-weight:800}
+  .direct li b{color:var(--paper)}
+  /* footer */
+  footer{padding:52px 0 40px;background:#0b0e11;border-top:1px solid var(--line)}
+  .foot{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between}
+  footer a{color:var(--accent);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .small{color:var(--muted);font-size:13.5px;margin-top:26px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo">Freight <span>Trac</span> LLC</div>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#how">How It Works</a>
+      <a href="#area">Service Area</a>
+      <a href="#direct">Why Direct</a>
+    </nav>
+    <a class="callbtn" href="tel:+14046444093">(404) 644-4093</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">Georgia Motor Carrier · Est. 2019</div>
+    <h1>Drop trailer &amp; flatbed freight, <em>run direct.</em></h1>
+    <p class="sub">Freight Trac LLC is a Georgia-based carrier specializing in drop trailer service and flatbed freight, with 53′ dry van capacity across the Southeast. You quote with the carrier, you talk to the carrier, the carrier hauls your freight — no broker in the middle.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSexXU7sI9y-6k-98FErbcLRF5XDDf-FJaQ2fwRN9hmuEnZmpg/viewform">Get a Freight Quote</a>
+      <a class="btn ghost" href="tel:+14046444093">Call (404) 644-4093</a>
+    </div>
+    <div class="chips">
+      <div class="chip">USDOT <b>3283583</b></div>
+      <div class="chip">MC <b>1046816</b></div>
+      <div class="chip"><b>Licensed &amp; Insured</b></div>
+      <div class="chip"><b>Interstate</b> Authority</div>
+    </div>
+  </div>
+</div>
+<div class="stripe"></div>
+
+<section id="services">
+  <div class="wrap">
+    <h2>What we haul</h2>
+    <p class="lede">Three ways to move freight with us — pick the one that fits your dock, your load, and your schedule.</p>
+    <div class="cards">
+      <div class="card">
+        <h3><span class="tag">Specialty</span>Drop Trailer Service</h3>
+        <p>We spot a trailer at your facility and your team loads on your schedule — no driver waiting, no detention clock. When it's ready, we swap or pick up and haul. Built for shippers who load around the clock or need a buffer at the dock.</p>
+      </div>
+      <div class="card">
+        <h3><span class="tag">Specialty</span>Flatbed</h3>
+        <p>Building materials, equipment, steel, and oversized or awkward freight that doesn't belong in a box. Our flatbed capacity runs Georgia and Tennessee daily, with interstate reach when the lane calls for it.</p>
+      </div>
+      <div class="card">
+        <h3><span class="tag">Core</span>53′ Dry Van</h3>
+        <p>Palletized general freight in clean, road-ready 53-foot dry vans. Local Georgia shuttles, regional lanes, and dedicated repeat runs — the workhorse service this company was built on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="band">
+  <div class="wrap">
+    <h2>How quoting works</h2>
+    <p class="lede">Three steps between you and a truck. Most quotes go out the same business day.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">STEP 1</div>
+        <h3>Tell us the load</h3>
+        <p>Two minutes on the quote form: pickup, delivery, date, weight, and what you're shipping.</p>
+      </div>
+      <div class="step">
+        <div class="n">STEP 2</div>
+        <h3>Get a direct rate</h3>
+        <p>One number from the carrier who will actually haul it — no broker markup stacked on top.</p>
+      </div>
+      <div class="step">
+        <div class="n">STEP 3</div>
+        <h3>We run it</h3>
+        <p>Pickup to delivery, you deal with us start to finish. One phone number, one point of contact.</p>
+      </div>
+    </div>
+    <div class="cta" style="margin-top:36px">
+      <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSexXU7sI9y-6k-98FErbcLRF5XDDf-FJaQ2fwRN9hmuEnZmpg/viewform">Start a Quote</a>
+    </div>
+  </div>
+</section>
+
+<section id="area">
+  <div class="wrap">
+    <h2>Service area</h2>
+    <p class="lede">Based in Georgia — Villa Rica and Oxford — and running where our customers ship. Interstate authority for the lanes beyond.</p>
+    <div class="areas">
+      <div class="area">Georgia<small>Home base · daily</small></div>
+      <div class="area">Tennessee<small>Regional · regular lanes</small></div>
+      <div class="area">The Southeast<small>AL · SC · NC · FL lanes</small></div>
+      <div class="area">Nationwide<small>Interstate authority</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="direct" class="band">
+  <div class="wrap direct">
+    <div>
+      <h2>Work with the carrier, not a middleman</h2>
+      <p class="lede" style="margin-bottom:0">Every load you book with Freight Trac is hauled by Freight Trac or our contracted fleet partners under our authority — quoted, dispatched, and answered for by the same people.</p>
+    </div>
+    <ul>
+      <li><b>One decision-maker.</b> The person who quotes your load can say yes on the spot.</li>
+      <li><b>No markup stack.</b> Your rate is the carrier's rate, not a broker's spread.</li>
+      <li><b>Direct line.</b> (404) 644-4093 reaches the operation, not a call center.</li>
+      <li><b>Authority you can verify.</b> USDOT 3283583 · MC-1046816, active and insured.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="logo" style="margin-bottom:10px">Freight <span>Trac</span> LLC</div>
+        <div class="small" style="margin-top:0">Drop trailer · Flatbed · 53′ Dry Van<br>Villa Rica – Oxford, Georgia</div>
+      </div>
+      <div>
+        <div style="font-weight:700;margin-bottom:8px">Contact</div>
+        <div class="small" style="margin-top:0">
+          <a href="tel:+14046444093">(404) 644-4093</a><br>
+          <a href="mailto:tracfreight@gmail.com">tracfreight@gmail.com</a><br>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSexXU7sI9y-6k-98FErbcLRF5XDDf-FJaQ2fwRN9hmuEnZmpg/viewform">Request a freight quote</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:700;margin-bottom:8px">Authority</div>
+        <div class="small" style="margin-top:0">USDOT 3283583<br>MC-1046816<br>Licensed &amp; insured</div>
+      </div>
+    </div>
+    <div class="small">© 2026 Freight Trac LLC. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
