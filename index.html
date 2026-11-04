@@ -333,10 +333,10 @@
 <script>
 (function(){
   var FORM='https://docs.google.com/forms/d/e/1FAIpQLSexXU7sI9y-6k-98FErbcLRF5XDDf-FJaQ2fwRN9hmuEnZmpg/viewform';
-  var E={company:'entry.1796854182',name:'entry.803565972',email:'entry.173777423',phone:'entry.678504157',pickup:'entry.113423873',delivery:'entry.913380622',equipment:'entry.4628994',weight:'entry.1825364215',commodity:'entry.1140045171',pallets:'entry.743967477',notes:'entry.527171366'};
+  var E={company:'entry.1796854182',name:'entry.803565972',email:'entry.173777423',phone:'entry.678504157',pickupCity:'entry.755045221',pickupState:'entry.1064875724',deliveryCity:'entry.1842269702',deliveryState:'entry.1060726634',date:'entry.1309323453',equipment:'entry.4628994',weight:'entry.1825364215',commodity:'entry.1140045171',pallets:'entry.743967477',notes:'entry.527171366'};
   var steps=[
     {k:'commodity',q:"Hey \u2014 need a freight rate? Let's get you one fast. What are you hauling?"},
-    {k:'pickup',q:"Where's it picking up? (city & state)"},
+    {k:'pickup',q:"Where's it picking up? (city & state \u2014 like Conyers, GA)"},
     {k:'delivery',q:"And where's it delivering? (city & state)"},
     {k:'date',q:"When does it need to pick up?"},
     {k:'equipment',q:"What equipment do you need?",chips:["53\u2032 Dry Van","Flatbed","Step Deck","Power Only","Drop Trailer","Other"]},
@@ -365,19 +365,30 @@
     i++; ask();
   }
   function sendNow(){ var v=inp.value.trim(); if(!v && steps[i] && steps[i].chips) return; if(!v && !(steps[i]&&steps[i].opt)) return; inp.value=''; answer(v); }
+  var STN={AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
+  var STNAMES=Object.keys(STN).map(function(k){return STN[k];});
+  function stateFrom(tok){ if(!tok) return ''; tok=tok.replace(/\./g,'').trim(); if(STN[tok.toUpperCase()]) return STN[tok.toUpperCase()]; for(var i=0;i<STNAMES.length;i++){ if(STNAMES[i].toLowerCase()===tok.toLowerCase()) return STNAMES[i]; } return ''; }
+  function splitCS(v){ v=(v||'').trim(); var city=v,state='',tok=''; var ci=v.lastIndexOf(',');
+    if(ci>-1){ tok=v.slice(ci+1); city=v.slice(0,ci); }
+    else { var m=v.match(/^(.*?)[\s]+([A-Za-z.]{2}|[A-Za-z ]+)$/); if(m){ city=m[1]; tok=m[2]; } }
+    state=stateFrom(tok);
+    if(!state){ var low=v.toLowerCase(); for(var i=0;i<STNAMES.length;i++){ var n=STNAMES[i]; if(low.endsWith(n.toLowerCase())){ state=n; city=v.slice(0,v.length-n.length).replace(/[,\s]+$/,''); break; } } }
+    if(!state) city=v;
+    return {city:city.trim(), state:state};
+  }
   function finish(){
     var p=new URLSearchParams(); p.set('usp','pp_url');
+    var notes=ans.notes||'';
     if(ans.commodity)p.set(E.commodity,ans.commodity);
-    if(ans.pickup)p.set(E.pickup,ans.pickup);
-    if(ans.delivery)p.set(E.delivery,ans.delivery);
+    if(ans.pickup){ var pu=splitCS(ans.pickup); if(pu.city)p.set(E.pickupCity,pu.city); if(pu.state)p.set(E.pickupState,pu.state); else notes=('Pickup: '+ans.pickup+'. '+notes).trim(); }
+    if(ans.delivery){ var dl=splitCS(ans.delivery); if(dl.city)p.set(E.deliveryCity,dl.city); if(dl.state)p.set(E.deliveryState,dl.state); else notes=('Delivery: '+ans.delivery+'. '+notes).trim(); }
     if(ans.equipment)p.set(E.equipment,ans.equipment);
     if(ans.weight)p.set(E.weight,ans.weight);
     if(ans.pallets)p.set(E.pallets,ans.pallets);
     if(ans.name)p.set(E.name,ans.name);
     if(ans.company)p.set(E.company,ans.company);
     if(ans.contact){ if(ans.contact.indexOf('@')>-1)p.set(E.email,ans.contact); else p.set(E.phone,ans.contact); }
-    var notes=ans.notes||'';
-    if(ans.date){ var d=new Date(ans.date); if(!isNaN(d)){ p.set('entry.473942642_year',d.getFullYear()); p.set('entry.473942642_month',d.getMonth()+1); p.set('entry.473942642_day',d.getDate()); } else { notes=('Pickup date: '+ans.date+'. '+notes).trim(); } }
+    if(ans.date){ var d=new Date(ans.date); if(!isNaN(d)){ p.set(E.date+'_year',d.getFullYear()); p.set(E.date+'_month',d.getMonth()+1); p.set(E.date+'_day',d.getDate()); } else { notes=('Pickup date: '+ans.date+'. '+notes).trim(); } }
     if(notes)p.set(E.notes,notes);
     bot("That's everything I need. Tap below to finish your quote request \u2014 it's already filled out for you. We quote fast, so you'll hear back shortly.");
     var a=document.createElement('a'); a.className='ftDone'; a.href=FORM+'?'+p.toString(); a.target='_blank'; a.rel='noopener'; a.textContent='Finish My Quote \u2192'; body.appendChild(a);
