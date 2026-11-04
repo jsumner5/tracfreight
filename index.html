@@ -92,6 +92,25 @@
   .shot.wide{grid-column:1/-1}
   .shot.wide img{aspect-ratio:21/9}
   .shot figcaption{padding:12px 16px;color:var(--muted);font-size:14.5px}
+  /* quote chat */
+  #ftChatBtn{position:fixed;right:20px;bottom:20px;z-index:50;background:#fff;color:#10130f;border:none;border-radius:999px;padding:13px 20px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 8px 28px rgba(0,0,0,.45)}
+  #ftChatBtn:hover{background:var(--accent2)}
+  #ftChat{position:fixed;right:20px;bottom:78px;z-index:50;width:min(360px,calc(100vw - 32px));height:480px;max-height:calc(100vh - 110px);background:#171d23;border:1px solid var(--line);border-radius:14px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.55)}
+  #ftChat.open{display:flex}
+  #ftChatHead{background:#0b0e11;padding:13px 16px;font-weight:800;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+  #ftChatHead small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+  #ftChatClose{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+  #ftChatBody{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px}
+  .ftMsg{max-width:85%;padding:9px 13px;border-radius:12px;font-size:14.5px;line-height:1.45}
+  .ftBot{background:#232b34;align-self:flex-start;border-bottom-left-radius:4px}
+  .ftUser{background:#fff;color:#10130f;align-self:flex-end;border-bottom-right-radius:4px}
+  .ftChips{display:flex;flex-wrap:wrap;gap:7px;align-self:flex-start}
+  .ftChip{background:none;border:1px solid var(--line);color:var(--paper);border-radius:999px;padding:6px 13px;font-size:13.5px;cursor:pointer}
+  .ftChip:hover{border-color:#fff}
+  #ftChatFoot{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line);background:#0b0e11}
+  #ftChatInput{flex:1;background:#171d23;border:1px solid var(--line);border-radius:8px;color:var(--paper);padding:9px 11px;font-size:14.5px}
+  #ftChatSend{background:#fff;color:#10130f;border:none;border-radius:8px;padding:9px 15px;font-weight:800;cursor:pointer}
+  .ftDone{background:#fff;color:#10130f;text-align:center;font-weight:800;border-radius:10px;padding:12px;text-decoration:none;align-self:stretch}
   /* footer */
   footer{padding:52px 0 40px;background:#0b0e11;border-top:1px solid var(--line)}
   .foot{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between}
@@ -305,5 +324,72 @@
   </div>
 </footer>
 
+<button id="ftChatBtn" aria-label="Open quote chat">&#128172; Get a Quote</button>
+<div id="ftChat" role="dialog" aria-label="Freight quote chat">
+  <div id="ftChatHead"><div>Freight Trac — Fast Quote<small>Answer a few quick questions</small></div><button id="ftChatClose" aria-label="Close chat">&times;</button></div>
+  <div id="ftChatBody"></div>
+  <div id="ftChatFoot"><input id="ftChatInput" type="text" placeholder="Type your answer..." autocomplete="off"><button id="ftChatSend">Send</button></div>
+</div>
+<script>
+(function(){
+  var FORM='https://docs.google.com/forms/d/e/1FAIpQLSexXU7sI9y-6k-98FErbcLRF5XDDf-FJaQ2fwRN9hmuEnZmpg/viewform';
+  var E={company:'entry.1796854182',name:'entry.803565972',email:'entry.173777423',phone:'entry.678504157',pickup:'entry.113423873',delivery:'entry.913380622',equipment:'entry.4628994',weight:'entry.1825364215',commodity:'entry.1140045171',pallets:'entry.743967477',notes:'entry.527171366'};
+  var steps=[
+    {k:'commodity',q:"Hey \u2014 need a freight rate? Let's get you one fast. What are you hauling?"},
+    {k:'pickup',q:"Where's it picking up? (city & state)"},
+    {k:'delivery',q:"And where's it delivering? (city & state)"},
+    {k:'date',q:"When does it need to pick up?"},
+    {k:'equipment',q:"What equipment do you need?",chips:["53\u2032 Dry Van","Flatbed","Step Deck","Power Only","Drop Trailer","Other"]},
+    {k:'weight',q:"Roughly how much does it weigh, in pounds?"},
+    {k:'pallets',q:"How many pallets or pieces? (you can skip this one)",opt:true},
+    {k:'name',q:"What's your name?"},
+    {k:'company',q:"And your company? (or skip)",opt:true},
+    {k:'contact',q:"Best phone number or email to send your rate to?"},
+    {k:'notesIn',q:"Anything else we should know? (or skip)",opt:true}
+  ];
+  var i=0,ans={},started=false;
+  var btn=document.getElementById('ftChatBtn'),box=document.getElementById('ftChat'),body=document.getElementById('ftChatBody'),inp=document.getElementById('ftChatInput'),send=document.getElementById('ftChatSend');
+  function scroll(){body.scrollTop=body.scrollHeight;}
+  function bot(t){var d=document.createElement('div');d.className='ftMsg ftBot';d.textContent=t;body.appendChild(d);scroll();}
+  function user(t){var d=document.createElement('div');d.className='ftMsg ftUser';d.textContent=t;body.appendChild(d);scroll();}
+  function chipsFor(s){
+    var c=document.createElement('div');c.className='ftChips';
+    if(s.chips){s.chips.forEach(function(v){var b=document.createElement('button');b.className='ftChip';b.textContent=v;b.onclick=function(){answer(v);};c.appendChild(b);});}
+    if(s.opt){var sk=document.createElement('button');sk.className='ftChip';sk.textContent='Skip';sk.onclick=function(){answer('');};c.appendChild(sk);}
+    if(c.children.length)body.appendChild(c);
+  }
+  function ask(){ if(i>=steps.length){finish();return;} var s=steps[i]; bot(s.q); chipsFor(s); scroll(); inp.focus(); }
+  function answer(v){
+    var s=steps[i]; user(v||'\u2014 skip \u2014');
+    if(v){ if(s.k==='notesIn'){ans.notes=((ans.notes||'')+' '+v).trim();} else {ans[s.k]=v;} }
+    i++; ask();
+  }
+  function sendNow(){ var v=inp.value.trim(); if(!v && steps[i] && steps[i].chips) return; if(!v && !(steps[i]&&steps[i].opt)) return; inp.value=''; answer(v); }
+  function finish(){
+    var p=new URLSearchParams(); p.set('usp','pp_url');
+    if(ans.commodity)p.set(E.commodity,ans.commodity);
+    if(ans.pickup)p.set(E.pickup,ans.pickup);
+    if(ans.delivery)p.set(E.delivery,ans.delivery);
+    if(ans.equipment)p.set(E.equipment,ans.equipment);
+    if(ans.weight)p.set(E.weight,ans.weight);
+    if(ans.pallets)p.set(E.pallets,ans.pallets);
+    if(ans.name)p.set(E.name,ans.name);
+    if(ans.company)p.set(E.company,ans.company);
+    if(ans.contact){ if(ans.contact.indexOf('@')>-1)p.set(E.email,ans.contact); else p.set(E.phone,ans.contact); }
+    var notes=ans.notes||'';
+    if(ans.date){ var d=new Date(ans.date); if(!isNaN(d)){ p.set('entry.473942642_year',d.getFullYear()); p.set('entry.473942642_month',d.getMonth()+1); p.set('entry.473942642_day',d.getDate()); } else { notes=('Pickup date: '+ans.date+'. '+notes).trim(); } }
+    if(notes)p.set(E.notes,notes);
+    bot("That's everything I need. Tap below to finish your quote request \u2014 it's already filled out for you. We quote fast, so you'll hear back shortly.");
+    var a=document.createElement('a'); a.className='ftDone'; a.href=FORM+'?'+p.toString(); a.target='_blank'; a.rel='noopener'; a.textContent='Finish My Quote \u2192'; body.appendChild(a);
+    bot('Rather just talk it through? Call us at (470) 222-4782.');
+    document.getElementById('ftChatFoot').style.display='none'; scroll();
+  }
+  function open(){ box.classList.add('open'); btn.style.display='none'; if(!started){started=true; ask();} }
+  function close(){ box.classList.remove('open'); btn.style.display='block'; }
+  btn.onclick=open; document.getElementById('ftChatClose').onclick=close;
+  send.onclick=sendNow; inp.addEventListener('keydown',function(e){ if(e.key==='Enter')sendNow(); });
+  setTimeout(function(){ try{ if(!sessionStorage.getItem('ftChatOpened')){ sessionStorage.setItem('ftChatOpened','1'); open(); } }catch(e){ open(); } },3500);
+})();
+</script>
 </body>
 </html>
